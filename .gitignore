@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+uploads/*
+output/*
+logs/*
+!uploads/.gitkeep
+!output/.gitkeep
+!logs/.gitkeep
+*.xlsx
+*.pdf
