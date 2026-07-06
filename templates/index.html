@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doctor Validation Cleanup</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <div class="header">
+        <h1>Doctor Validation Cleanup</h1>
+        <p>Upload medical society PDFs and the PPS Final Template, then generate one consolidated Excel file.</p>
+      </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="messages">
+            {% for category, message in messages %}
+              <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form action="/generate" method="post" enctype="multipart/form-data" class="form" id="generateForm">
+        <label class="field">
+          <span>1. Upload PDF files</span>
+          <small>Accepted files: PPAG, PCP, PCS, POGS, PAFP PDFs</small>
+          <input type="file" name="pdf_files" accept=".pdf" multiple required>
+        </label>
+
+        <label class="field">
+          <span>2. Upload PPS Final Template</span>
+          <small>Accepted file: PPS FINAL TEMPLATE.xlsx</small>
+          <input type="file" name="template_file" accept=".xlsx" required>
+        </label>
+
+        <button type="submit" id="generateBtn">Generate Consolidated Excel</button>
+      </form>
+
+      <div class="help">
+        <h2>Supported formats</h2>
+        <p>The system detects the medical society from the PDF filename and normalizes records into the PPS template.</p>
+        <ul>
+          <li>PPAG</li>
+          <li>PCP</li>
+          <li>PCS</li>
+          <li>POGS</li>
+          <li>PAFP</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
