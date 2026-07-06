@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generation Complete</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <section class="card result-card">
+      <div class="success-icon">✓</div>
+      <h1>Consolidation Complete</h1>
+      <p class="subtitle">Total extracted records: <strong>{{ total_records }}</strong></p>
+
+      <a class="download" href="{{ url_for('download', filename=output_file) }}">Download Consolidated Excel</a>
+      <a class="secondary" href="{{ url_for('index') }}">Process another batch</a>
+
+      {% if warnings %}
+        <div class="warnings">
+          <h2>Review notes</h2>
+          <ul>
+            {% for warning in warnings %}
+              <li>{{ warning }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>
